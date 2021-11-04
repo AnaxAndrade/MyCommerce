@@ -13,6 +13,7 @@ export default function Shop(){
     const pageSize = 8;
     
     const { data, error } = useSWR('/api/products?limit=100', fetcher);
+    const [filtrados, setFiltrados] = useState([]);
     const [produtos, setProdutos] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [pagePointer, setPagePointer] = useState(0);
@@ -21,6 +22,7 @@ export default function Shop(){
         searchRef.current.value = "";
         setSearchTerm("");
     }
+
     function search(){
         setSearchTerm(searchRef.current.value);
     }
@@ -31,7 +33,7 @@ export default function Shop(){
             return setPagePointer(0);
         }
 
-        let ate =  data.length >= pagePointer + pageSize ? pagePointer + pageSize : data.length;
+        let ate =  filtrados.length >= pagePointer + pageSize ? pagePointer + pageSize : filtrados.length;
 
         setPagePointer(ate);
     }
@@ -39,8 +41,6 @@ export default function Shop(){
     useEffect(()=>{
         if (data)
         {
-            if (pagePointer == 0) loadMore();
-
             //Filtrar os produtos de acordo com o termo pesquisado
             let filtered = data;
             if (searchTerm && searchTerm.trim().length > 0)
@@ -62,9 +62,14 @@ export default function Shop(){
             }
 
             //console.log(pagePointer+"/"+data.length);
-            setProdutos(filtered.slice(0, pagePointer));
+            setFiltrados(filtered);
+            setPagePointer(Math.min(pageSize, filtered.length));
         }
-    },[data, pagePointer, searchTerm]);
+    },[data, searchTerm]);
+
+    useEffect(()=>{
+        setProdutos(filtrados.slice(0, pagePointer));
+    }, [filtrados, pagePointer]);
 
     return (
         <Layout>
@@ -83,8 +88,10 @@ export default function Shop(){
                                 </div>
                             </div>
                             <br/>
-                            {error && <h3>Erro ao carregar lista de produtos!</h3>}
-                            {produtos && !error && <Fragment><ProductList items={produtos}/> <div className="text-center my-4"><button type="button" className="btn btn-outline-secondary" onClick={loadMore}>Carregar mais...</button> </div></Fragment> }
+                            {error && <div className="alert alert-danger"><p>Erro ao carregar lista de produtos!</p></div>}
+                            {produtos && produtos.length == 0 && !error && <div className="alert alert-info"><p>Sem Itens para mostrar!</p></div>}
+                            {produtos && !error && <ProductList items={produtos}/> }
+                            {produtos && !error && pagePointer < filtrados.length &&  <div className="text-center my-4"><button type="button" className="btn btn-outline-secondary" onClick={loadMore}>Carregar mais...</button> </div>}
                             {!produtos && !error && <h3>Carregando...!</h3>}
                         </div>
                     </div>
