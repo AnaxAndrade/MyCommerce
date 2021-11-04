@@ -7,7 +7,6 @@ import ProductList from '../components/products/product-list'
 import Link from 'next/link';
 
 export default function Home(props) {
-  console.log(props);
   return (
     <Layout>
         <Head>
@@ -44,7 +43,6 @@ export async function getStaticProps(context){
   let itens = [];
   const req = await fetch('http://localhost:3001/api/featured?limit=4');
   itens = await req.json();
-  console.log(itens);
   
   return {
     props: {
