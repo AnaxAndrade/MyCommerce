@@ -1,12 +1,12 @@
 import Layout from "../components/base/Layout";
-import { Fragment } from 'react'
-import ProductList from '../components/products/product-list'
+import { Fragment } from 'react';
+import ProductList from '../components/products/product-list';
 import Link from 'next/link';
 import Head from 'next/head'
 import { useState, useEffect, useRef } from 'react';
 import fetcher from "../lib/fetcher";
 import useSWR from "swr";
-
+import {GridShimmer} from  '../components/products/product-shimmer';
 export default function Shop(){
     const searchRef = useRef("");
 
@@ -89,10 +89,10 @@ export default function Shop(){
                             </div>
                             <br/>
                             {error && <div className="alert alert-danger"><p>Erro ao carregar lista de produtos!</p></div>}
-                            {produtos && produtos.length == 0 && !error && <div className="alert alert-info"><p>Sem Itens para mostrar!</p></div>}
                             {produtos && !error && <ProductList items={produtos}/> }
                             {produtos && !error && pagePointer < filtrados.length &&  <div className="text-center my-4"><button type="button" className="btn btn-outline-secondary" onClick={loadMore}>Carregar mais...</button> </div>}
-                            {!produtos && !error && <h3>Carregando...!</h3>}
+                            {!data && !error && <GridShimmer items={8} />}
+                            {data && produtos && produtos.length == 0 && !error && <div className="alert alert-info"><p>Sem Itens para mostrar!</p></div>}
                         </div>
                     </div>
                 </main>
