@@ -9,8 +9,8 @@ export default function Shop(){
         <Layout>
             <Fragment>
                 <Head>
-                    <title>My Commerce | Loja</title>
-                    <meta name="description" content="Lista de Produtos My Commerce" />
+                    <title>MyShop | Loja</title>
+                    <meta name="description" content="Lista de Produtos MyShop" />
                 </Head>
                 <main>
                     <div className="album py-5 bg-light">

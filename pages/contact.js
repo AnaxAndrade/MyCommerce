@@ -9,7 +9,7 @@ export default function About(){
         <Layout>
       <Fragment>
         <Head>
-          <title>My Commerce | Contatos</title>
+          <title>MyShop | Contatos</title>
           <meta name="description" content="É um Web App E-commerce fictício, criado para demonstrar skills com NextJS/React!" />
         </Head>
         <main>
