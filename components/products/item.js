@@ -14,7 +14,7 @@ export default function Item(props){
                         <div className="btn-group">
                             <button type="button" className="btn btn-sm btn-outline-primary">Adicionar ao carrinho</button>
                         </div>
-                        <small className="text-muted">9 disponíveis</small>
+                        <small className="text-muted">Concrete</small>
                     </div>
                 </div>
                 </div>

@@ -9,10 +9,10 @@ export default function Hero(){
                 <p className="lead text-muted">Aqui você encontra os melhores produtos nos melhores preços!</p>
                 <p>
                     <Link href="/shop"> 
-                        <a className="btn btn-primary my-2 mx-1">Ir para a loja</a>
+                        <a className="btn btn-outline-primary my-2 mx-1">Ir para a loja</a>
                     </Link>
                     <Link href="/contact">
-                        <a className="btn btn-secondary my-2">Contacte-nos</a> 
+                        <a className="btn btn-outline-primary my-2">Contacte-nos</a> 
                     </Link>
                 </p>
             </div>
