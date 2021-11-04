@@ -7,6 +7,9 @@
 .name {
   display: block;
 }
+.subtitle {
+  display: block;
+}
 .price {
   display: block;
 }
