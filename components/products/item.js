@@ -1,17 +1,20 @@
 import Link from 'next/link';
 import styles from './Item.module.css';
+
 export default function Item(props){
+    console.log(props);
     return (
         <div className="col">
-            <Link href={"/view/"+props.id}>
+            <Link href={`/view/${props.item.id}`}>
                 <div className={"card shadow-sm "+styles.card}>
-                <svg className="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                {props.item.imagem && <img src={props.item.imagem} width="100%" height="180"  />}
+                {!props.item.imagem && <svg className="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> }
 
                 <div className="card-body">
-                    <span className={"text-center "+styles.name}>O nome do produto</span>
-                    <small className={"text-muted text-center mb-1 "+styles.subtitle}>Concrete</small>
+                    <span className={"text-center "+styles.name}>{props.item.nome}</span>
+                    <small className={"text-muted text-center mb-1 "+styles.subtitle}>{props.item.categoria}</small>
                     <div className="d-flex justify-content-between align-items-center">
-                        <span className={"text-center text-primary "+styles.price}><b>R$ 1.590</b></span>
+                        <span className={"text-center text-primary "+styles.price}><b>R$ {props.item.preco}</b></span>
                         <div className="btn-group">
                             <button type="button" className="btn btn-sm btn-outline-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
