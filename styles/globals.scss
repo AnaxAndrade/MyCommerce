@@ -1,0 +1,15 @@
+$primary: #ff9000;
+$secondary: #0d6efd;
+
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
+
+.nav-border .nav-link.active {
+  border-bottom: 2px solid $primary;
+  font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: $primary;
+  font-weight: 500;
+}
