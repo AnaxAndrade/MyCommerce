@@ -41,9 +41,56 @@ export default function Home(props) {
 
 export async function getStaticProps(context){
   let itens = [];
-  const req = await fetch('http://localhost:3001/api/featured?limit=4');
-  itens = await req.json();
-  
+  const req = await fetch('http://localhost:3000/api/featured?limit=4').catch(err =>{});
+  if (req)
+  {
+    itens = await req.json();
+  }
+  else{
+    itens  = [
+      {
+        nome: "Ergonomic Fresh Bacon",
+        descricao: "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+        categoria: "Generic",
+        imagem: "http://placeimg.com/640/480/animals",
+        preco: "174.00",
+        material: "Concrete",
+        departamento: "Garden",
+        id: "1-28"
+      },
+      {
+        nome: "Awesome Frozen Soap",
+        descricao: "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+        categoria: "Small",
+        imagem: "http://placeimg.com/640/480/transport",
+        preco: "404.00",
+        material: "Rubber",
+        departamento: "",
+        id: "2-36"
+      },
+      {
+        nome: "Fantastic Steel Salad",
+        descricao: "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+        categoria: "Refined",
+        imagem: "http://placeimg.com/640/480/nature",
+        preco: "716.00",
+        material: "Metal",
+        departamento: "Tools",
+        id: "1-2"
+      },
+      {
+        nome: "Generic Plastic Bike",
+        descricao: "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+        categoria: "Generic",
+        imagem: "http://placeimg.com/640/480/abstract",
+        preco: "14.00",
+        material: "Granite",
+        departamento: "",
+        id: "2-6"
+      }
+    ];
+  }
+
   return {
     props: {
       items: itens,

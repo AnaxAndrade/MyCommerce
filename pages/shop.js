@@ -30,7 +30,7 @@ export default function Shop(){
         if (data)
         {
             if (pagePointer == 0) loadMore();
-            console.log(pagePointer+"/"+data.length);
+            //console.log(pagePointer+"/"+data.length);
             setProdutos(data.slice(0, pagePointer));
         }
     },[data, pagePointer]);

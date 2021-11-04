@@ -18,9 +18,9 @@ export default function About(){
             <p className="lead"><b>Desenvolvido por:</b>  Anaximandro Andrade</p>
             <p className="lead text-muted">Para quaisquer esclarecimentos, pode utilizar dos seguintes meios:</p>
             <ul className={styles.contacts+" justify-content-center"}>
-                <li><a href="https://www.linkedin.com/in/anaxandrade/" target="_blank">LinkedIn</a></li>
-                <li><a href="https://github.com/AnaxAndrade" target="_blank">GitHub</a></li>
-                <li><a href="mailto:anaxfive@hotmail.com" target="_blank">Email</a></li>
+                <li><a href="https://www.linkedin.com/in/anaxandrade/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+                <li><a href="https://github.com/AnaxAndrade" target="_blank" rel="noreferrer">GitHub</a></li>
+                <li><a href="mailto:anaxfive@hotmail.com" target="_blank" rel="noreferrer">Email</a></li>
             </ul>
           </Hero>
         </main>

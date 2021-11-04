@@ -9,10 +9,12 @@ function Layout(props){
         <Fragment>
             <div className="container">
                 <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
-                    <a href="/" className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                        <img width="32" height="32" src="/CART.png"/>
-                        <span className="fs-4">MyShop</span>
-                    </a>
+                    <Link  href="/">
+                        <a className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                            <img width="32" height="32" src="/CART.png"/>
+                            <span className="fs-4">MyShop</span>
+                        </a>
+                    </Link>
                     <ul className="nav nav-border col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                         <li className="nav-item">
                             <Link href="/" aria-current="page">
