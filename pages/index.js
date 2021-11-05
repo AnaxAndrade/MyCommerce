@@ -21,7 +21,7 @@ export default function Home(props) {
           <div className="album py-5 bg-light">
             <div className="container">
               <h3>Produtos em destaque</h3>
-              <ProductList items={props.items} onAddToCart={(p) => {console.log("Adicionar ao carrinho: "+p.id+" - "+p.nome)}} />
+              <ProductList items={props.items} onAddToCart={(p) => {}} />
               <br/>
               { props.recent && props.recent.length > 0 && <h3>Visitados recentemente</h3>}
               { props.recent && props.recent.length > 0 && <ProductList items={props.recent}/> }

@@ -2,7 +2,10 @@ import Item from "./item";
 
 export default function ProductList(props){
     function addToCardHandler(p){
-        props.onAddToCart(p);
+        if (props.onAddToCart != null)
+        {
+            props.onAddToCart(p);
+        }
     }
 
     return(

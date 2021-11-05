@@ -5,7 +5,10 @@ import Image from 'next/image'
 export default function Item(props){
     
     function addToCartHandler(){
-        props.onAddToCart(props.item);
+        if (props.onAddToCart != null)
+        {
+            props.onAddToCart(props.item);
+        }
     }
 
     return (

@@ -15,7 +15,6 @@ export function ItemShimmer(){
 }
 
 export function GridShimmer(props){
-    console.log("shimmer items: "+props.items);
     return (<div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
         {[...Array(props.items)].map((e, i) => <ItemShimmer key={i} />)}
     </div>
