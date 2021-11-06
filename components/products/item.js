@@ -15,7 +15,7 @@ export default function Item(props){
         <div className="col">
             
                 <div className={"card shadow-sm "+styles.card}>
-                {props.item.imagem && <Link href={`/view/${props.item.id}`}><a><Image src={props.item.imagem} width="310" height={180}  /></a></Link>}
+                {props.item.imagem && <Link href={`/view/${props.item.id}`}><a><Image src={props.item.imagem} layout="responsive" width="340" height={180}  /></a></Link>}
                 {!props.item.imagem && <svg className="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> }
 
                 <div className="card-body">
