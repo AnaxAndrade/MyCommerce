@@ -81,10 +81,10 @@ export async function getStaticProps({params}){
 
     // Obter sugestão de outros produtos
     let itens = [];
-    const req = await fetch(`${config.BASE_URL}/api/featured?limit=4`).catch(err =>{});
-    if (req)
+    const reqf = await fetch(`${config.BASE_URL}/api/featured?limit=4`).catch(err =>{});
+    if (reqf)
     {
-        itens = await req.json();
+        itens = await reqf.json();
     }
 
     return {
@@ -98,23 +98,22 @@ export async function getStaticProps({params}){
 
 export async function getStaticPaths(){
    
-    return {
-        paths: ['2-36', '1-16', '1-21', '2-2'], // PRÉ GERAR APENAS PARA ALGUMAS PATHS
-        fallback: 'blocking'
-    }
-
-   /* PARA GERAR ESTATICAMENTE PATH PARA TODOS OS PRODUTOS
-    MAS A MOCKAPI possui request-throttling que dificulta efetuar chamada para
-    TODOS OS PRODUTOS
+    
+   /* 
+        PARA GERAR ESTATICAMENTE PATH PARA TODOS OS PRODUTOS
+        MAS A MOCKAPI possui request-throttling que dificulta efetuar chamada para
+        TODOS OS PRODUTOS
 
 
-    const req = await fetch(`${config.BASE_URL}/api/ids`).catch(err => console.log(err));
-    const pathss = await req.json();
+        const req = await fetch(`${config.BASE_URL}/api/ids`).catch(err => console.log(err));
+        const pathss = await req.json();
+    */
+    const pathss =  ['2-36', '1-16', '1-21', '2-2']; // PRÉ GERAR APENAS PARA ALGUMAS PATHS
+
 
     return {
         paths: pathss.map(p => ({params: {id: p} })),
         fallback: 'blocking'
     }
-    */
 
 }
