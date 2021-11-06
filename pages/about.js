@@ -14,7 +14,7 @@ export default function About(){
         <main>
           <Hero goShopBtn={true} contactBtn={true}>
             <h1 className="fw-light">Sobre o MyShop</h1>
-            <p className="lead text-muted">É um Web App E-commerce fictício, criado para demonstrar skills com NextJS/React!</p>
+            <p className="lead text-muted">É um Web App E-commerce fictício, criado por <a href="https://www.linkedin.com/in/anaxandrade" target="_blank" rel="noreferrer">Anaximandro Andrade</a> para demonstrar skills com NextJS/React!</p>
           </Hero>
         </main>
       </Fragment>
