@@ -75,7 +75,6 @@ export async function getStaticProps({params}){
     let prod = null;
     if (req)
     {
-        console.log(req);
         prod = await req.json();
     }
 

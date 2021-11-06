@@ -25,7 +25,7 @@ function Layout(props){
                             </li>
                             <li className="nav-item">
                                 <Link href="/shop" >
-                                    <a className={router.pathname.startsWith("/shop") ? "nav-link active" : "nav-link"}>Loja</a>
+                                    <a className={router.pathname.startsWith("/shop") || router.pathname.startsWith("/view") ? "nav-link active" : "nav-link"}>Loja</a>
                                 </Link>
                             </li>
                             <li className="nav-item">
