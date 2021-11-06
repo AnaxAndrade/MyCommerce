@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Fragment } from 'react'
 import Layout from '../components/base/Layout'
 import Hero from '../components/home/hero'
 import ProductList from '../components/products/product-list'
 import Link from 'next/link';
+import config from '../lib/config'
 
 export default function Home(props) {
   return (
@@ -20,10 +19,10 @@ export default function Home(props) {
           </Hero>
           <div className="album py-5 bg-light">
             <div className="container">
-              <h3>Produtos em destaque</h3>
-              <ProductList items={props.items} onAddToCart={(p) => {}} />
+              <h4>Produtos em destaque</h4>
+              <ProductList items={props.featured} onAddToCart={(p) => {}} />
               <br/>
-              { props.recent && props.recent.length > 0 && <h3>Visitados recentemente</h3>}
+              { props.recent && props.recent.length > 0 && <h4>Visitados recentemente</h4>}
               { props.recent && props.recent.length > 0 && <ProductList items={props.recent}/> }
               <br/>
               <br/>
@@ -41,12 +40,12 @@ export default function Home(props) {
 
 export async function getStaticProps(context){
   let itens = [];
-  const req = await fetch('http://localhost:3000/api/featured?limit=4').catch(err =>{});
-  if (req)
+  const req = await fetch(`${config.BASE_URL}/api/featured?limit=4`).catch(err =>{});
+ /* if (req)
   {
     itens = await req.json();
   }
-  else{
+  else{*/
     itens  = [
       {
         nome: "Ergonomic Fresh Bacon",
@@ -89,11 +88,11 @@ export async function getStaticProps(context){
         id: "2-6"
       }
     ];
-  }
+  //}
 
   return {
     props: {
-      items: itens,
+      featured: itens,
       recent: []
     },
     revalidate: 60

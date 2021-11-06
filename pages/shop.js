@@ -1,7 +1,5 @@
 import Layout from "../components/base/Layout";
-import { Fragment } from 'react';
 import ProductList from '../components/products/product-list';
-import Link from 'next/link';
 import Head from 'next/head'
 import { useState, useEffect, useRef } from 'react';
 import fetcher from "../lib/fetcher";
