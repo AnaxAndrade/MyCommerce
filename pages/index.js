@@ -41,11 +41,11 @@ export default function Home(props) {
 export async function getStaticProps(context){
   let itens = [];
   const req = await fetch(`${config.BASE_URL}/api/featured?limit=4`).catch(err =>{});
- /* if (req)
+  if (req)
   {
     itens = await req.json();
   }
-  else{*/
+  else{
     itens  = [
       {
         nome: "Ergonomic Fresh Bacon",
@@ -88,7 +88,7 @@ export async function getStaticProps(context){
         id: "2-6"
       }
     ];
-  //}
+  }
 
   return {
     props: {

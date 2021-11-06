@@ -17,8 +17,9 @@ export default function DetalhesProduto({item, featured}){
     return (
         <Layout>
             <Head>
-                <title>MyShop | Loja</title>
-                <meta name="description" content="Lista de Produtos MyShop" />
+                <title>MyShop | {item.nome}</title>
+                <meta name="title" content={item.nome} />
+                <meta name="description" content={item.descricao} />
             </Head>
                 <main>
                     <div className="album py-5 bg-light">
@@ -69,76 +70,51 @@ export default function DetalhesProduto({item, featured}){
 
 export async function getStaticProps({params}){
 
-    const req = await fetch(`${config.BASE_URL}/api/products/${params.id}`).catch(err =>{});
+    // Obter dados do produto
+    const req = await fetch(`${config.BASE_URL}/api/products/${params.id}`).catch(err => console.log(err));
     let prod = null;
     if (req)
     {
+        console.log(req);
         prod = await req.json();
     }
 
-    let itens = [
-        {
-          nome: "Ergonomic Fresh Bacon",
-          descricao: "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-          categoria: "Generic",
-          imagem: "http://placeimg.com/640/480/animals",
-          preco: "174.00",
-          material: "Concrete",
-          departamento: "Garden",
-          id: "1-28"
-        },
-        {
-          nome: "Awesome Frozen Soap",
-          descricao: "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-          categoria: "Small",
-          imagem: "http://placeimg.com/640/480/transport",
-          preco: "404.00",
-          material: "Rubber",
-          departamento: "",
-          id: "2-36"
-        },
-        {
-          nome: "Fantastic Steel Salad",
-          descricao: "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
-          categoria: "Refined",
-          imagem: "http://placeimg.com/640/480/nature",
-          preco: "716.00",
-          material: "Metal",
-          departamento: "Tools",
-          id: "1-2"
-        },
-        {
-          nome: "Generic Plastic Bike",
-          descricao: "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
-          categoria: "Generic",
-          imagem: "http://placeimg.com/640/480/abstract",
-          preco: "14.00",
-          material: "Granite",
-          departamento: "",
-          id: "2-6"
-        }
-      ];
+    // Obter sugestão de outros produtos
+    let itens = [];
+    const req = await fetch(`${config.BASE_URL}/api/featured?limit=4`).catch(err =>{});
+    if (req)
+    {
+        itens = await req.json();
+    }
 
     return {
         props: {
           item: prod,
           featured: itens
         },
-        revalidate: 60
+        revalidate: 1800
       }
 }
 
 export async function getStaticPaths(){
-   /* const req = await fetch(`${config.BASE_URL}/api/ids`).catch(err =>{});
-    const pathss = await req.json();
-    console.log(pathss.map(p => ({params: {id: p} }))); */
+   
     return {
-        paths:  [
-            {params: {id: '1-28'}},
-            {params: {id: '2-36'}},
-            {params: {id: '1-2'}},
-            {params: {id: '2-6'}}
-        ],
+        paths: ['2-36', '1-16', '1-21', '2-2'], // PRÉ GERAR APENAS PARA ALGUMAS PATHS
         fallback: 'blocking'
     }
+
+   /* PARA GERAR ESTATICAMENTE PATH PARA TODOS OS PRODUTOS
+    MAS A MOCKAPI possui request-throttling que dificulta efetuar chamada para
+    TODOS OS PRODUTOS
+
+
+    const req = await fetch(`${config.BASE_URL}/api/ids`).catch(err => console.log(err));
+    const pathss = await req.json();
+
+    return {
+        paths: pathss.map(p => ({params: {id: p} })),
+        fallback: 'blocking'
+    }
+    */
+
 }
