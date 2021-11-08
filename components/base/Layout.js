@@ -3,16 +3,9 @@ import { Fragment, useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import Footer from './Footer';
 import { useCart } from "react-use-cart";
-import { Auth } from 'aws-amplify';
 
 function Layout(props){
     const [isAuth, setIsAuth] = useState(false);
-
-    useEffect(() => {
-        Auth.currentAuthenticatedUser()
-        .then(user => {setIsAuth(true);})
-        .catch((err)=>{})
-    }, []);
 
     const router = useRouter();
     const {
@@ -21,8 +14,7 @@ function Layout(props){
       } = useCart();
 
     function logout(){
-        Auth.signOut().then(()=> router.push("/login"));
-        ;
+
     }
 
     return (

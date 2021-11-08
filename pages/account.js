@@ -7,13 +7,17 @@ import Head from 'next/head'
 export default function Conta(){
     const [user, setUser] = useState(null)
     const router = useRouter()
-    useEffect(() => {
+    
+    //TODO - Check for loggenIn User
+
+    /*useEffect(() => {
         Auth.currentAuthenticatedUser()
         .then(user => setUser(user))
         .catch(() => router.push('/login'))
     }, []);
     if (!user) return null;
     console.log(user);
+    */
     return (
          <Layout>
          <Head>
@@ -26,7 +30,7 @@ export default function Conta(){
                          <div className="col-md-8 offset-md-2">
                              <div className="card">
                                 <div className="card-body">
-                                    <h3 className="text-center">Bem vindo, {user.attributes.name}</h3>
+                                    <h3 className="text-center">Bem vindo, {""}</h3>
                                     <div className="alert alert-info">
                                         <p>Sem compras efetuadas!</p>
                                     </div>

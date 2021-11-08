@@ -5,10 +5,6 @@ import Head from 'next/head';
 import { CartProvider } from "react-use-cart";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from '../src/aws-exports';
-Amplify.configure(awsconfig);
-
 
 function MyApp({ Component, pageProps }) {
   return ( 

@@ -2,7 +2,6 @@ import Layout from "../components/base/Layout";
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRef } from 'react';
-import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
@@ -18,7 +17,7 @@ export default function Login(){
             return;
         }
         try{
-            const sign = await Auth.signIn({ username: emailRef.current.value, password: passwordRef.current.value});
+            //TODO - sign in logic
             toast.success(`Autenticado com sucesso!`,  { theme: "colored" });
             router.push("/account");
         }
