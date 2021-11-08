@@ -18,21 +18,18 @@ export default function Cart(){
                                         <form className="form-signin">
                                             <div className="text-center">
                                                 <img className="mb-4" src="/CART.png" alt="" width="72" height="72" />
-                                                <h1 className="h3 mb-3 font-weight-normal">Entrar</h1>
+                                                <h1 className="h3 mb-3 font-weight-normal">Criar Conta</h1>
                                             </div>
+                                            <label for="inputNome" className="sr-only">Nome</label>
+                                            <input type="text" id="inputNome" className="form-control" placeholder="Nome" required="" autofocus=""/>
                                             <label for="inputEmail" className="sr-only">Email</label>
                                             <input type="email" id="inputEmail" className="form-control" placeholder="Endereço de email" required="" autofocus=""/>
                                             <label for="inputPassword" className="sr-only">Password</label>
                                             <input type="password" id="inputPassword" className="form-control" placeholder="Password" required=""/>
-                                            <div className="checkbox mb-3">
-                                                <label>
-                                                <input type="checkbox" value="remember-me"/> Lembrar de mim
-                                                </label>
-                                            </div>
-                                            <div class="d-grid gap-2 text-center">
-                                                <button class="btn btn-primary" type="button">Entrar</button>
+                                            <div class="d-grid gap-2 text-center my-3">
+                                                <button class="btn btn-primary" type="button">Criar Conta</button>
                                                 <p className="my-0">ou</p>
-                                                <Link href="/register"><a>Criar uma conta</a></Link>
+                                                <Link href="/login"><a>Entrar</a></Link>
                                             </div>
                                         </form>
                                     </div>
