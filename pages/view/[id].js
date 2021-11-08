@@ -4,7 +4,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import ProductList from '../../components/products/product-list'
 import Link from 'next/link';
-import style from '../../styles/Details.module.css';
 
 export default function DetalhesProduto({item, featured}){
     const route = useRouter();
@@ -25,7 +24,7 @@ export default function DetalhesProduto({item, featured}){
                         <div className="container">
                             <div className="row">
                                 <div className="col-12">
-                                    <button type="button" className={"btn btn-link "+style.linkless} onClick={() => route.back()}>
+                                    <button type="button" className={"btn btn-link btn-linkless"} onClick={() => route.back()}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16"> 
                                             <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                                         </svg> Voltar
