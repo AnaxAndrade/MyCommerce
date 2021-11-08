@@ -1,34 +1,91 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Sobre o projeto
+O faz parte de um teste para desenvolvedor Fullstack. Objetivo é utilizar os conhecimentos de desenvolvimento para implementar uma e-commerce, obtendo dados de produtos, a partir da APi de fornecedores e disponibilizar os produtos para venda. Deverá ser possível, pesquisar produtos, adicionar itens ao carrinho e simular compras que deverão ficar registadas em um Banco de Dados.
+<br/>
+**DEMO:** https://my-commerce-chi.vercel.app/
 
-## Getting Started
+## Funcionalidades
+- Carregar dados de APIs diferentes
+- Armazenar produtos em um Banco de Dados
+- Pesquisar por produtos
+- Ver detalhes de um produto
+- Cadastro e autenticação de usuário
+- Carrinho de Compras
+- Simular Compra de Produtos
+- Lista de compras do usuário
+- Boa boa experiência de usuário com feedbacks visuais (progress e mensagens de feedback)
+- Arquitetura para alta performance
+- SEO
 
-First, run the development server:
+## Análise & Execução
+### Tech Stack ###
+- **MongoDB** - Ser schema free ajuda na iteração do modelo de dados ao longo do projeto (principalmente em projetos de prova de conceito, MVP ou um teste como este). Para use case de ecommerce em especial, encaixa muito bem.
+- **NodeJS** - Já integrado no NextJS para rápida criação de APIs Backend utilizando a mesma codebase que frontend (para projetos menores funciona é um caminho muito eficiente)
+- **NextJS/React** - Criação de UI simmples dinâmica e moderna
 
-```bash
-npm run dev
-# or
-yarn dev
+### Arquitetura ###
+![MyShop Architecture drawio](https://user-images.githubusercontent.com/5482552/140827719-b2f592b4-e9a0-43a6-968d-9b24063ffdf5.png)
+
+### Implementação ###
+1. *Criação do modelo de dados*
+Criação de um modelo de dados comum para armazenamento e api de comunicação entre backend e frontend.
+```json 
+    {
+        "nome": "",
+        "descricao": "",
+        "categoria": "",
+        "imagem": "http://placeimg.com/640/480/business",
+        "preco": "127.00",
+        "material": "",
+        "departamento": "",
+        "id": "1"
+    },
 ```
+2. *Criação de módulo repositório para abstrair comunicação com APIs de fornecedores e com o Banco de dados*
+Devido ao fato de cada fornecedor possuir uma api direfente foi criada uma camada de abstração que trata de obter os dados de cada api e transformar em uma estrutura comum. Após carregar os dados da API esses dados de produtos são armazenados na base de dados, permitindo a consulta mesmo serviço fornecedor estando indisponível (em cenário real poderia ter de implementar um serviço de sincronização periódica para obter novos produtos ou atualizar as informações dos produtos existentes)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. *Criação da API para nosso frontend*
+As APIs para o frontend são criadas utilizando recurso de criação de APIs backend do NextJS. Essa API serve de ponte entre o frontend e os dados. Incluindo endpoints para autenticação
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+4. *Criação do Frontend*
+Implementação de Frontend com React/NextJS, utilizando a geração estática de páginas dos produtos, para permitir maior performance no carregamento dessas páginas a implementação das demais lógicas descritas na secção [Funcionalidades](#funcionalidades)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+5. *Deploy Contínuo*
+Hospedagem do código no github e integração para deployment contínuo (no caso utilizado Vercel) para permitir maior agilidade no teste da aplicação em ambiente produtivo
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Como usar
 
-## Learn More
+Pode utilizar a aplicação de duas formas:
+1. Demo Online
+    - Acedendo ao link [App Demo](https://my-commerce-chi.vercel.app/)
+2. Execuntando em seu ambiente
+    - Instalar Node.js
+    - Clonar este projeto
+    - Obter uma instância MongoDB, exemplo utilizando Serviço [Mongo Atlas](https://www.mongodb.com/atlas/database)
+    - Definir variáveis de ambiente - em ficheiro .env
+    ```env
+    BASE_URL=
+    NEXTAUTH_URL=$BASE_URL
+    MONGO_USER=
+    MONGO_PASSWORD=
+    MONGO_DATABASE=
+    MONGO_CONNECTION=
+    ```
+    - Executar projeto em modo de desenvolvimento
+    ```bash
+    npm run dev
+    # ou
+    yarn dev
+    ```
+    - Alternativamente pode efetuar build e depois executar para execução parecida com ambiente final
+    ```bash
+    npm run build
+    # ou
+    yarn build
+    
+    npm run start
+    # ou
+    yarn start
+    
+    ```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Abrir [http://localhost:3000](http://localhost:3000) no browser para ver a aplicação em execução
