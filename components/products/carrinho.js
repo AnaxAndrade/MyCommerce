@@ -8,7 +8,7 @@ export default function Carrinho({items, isEmpty, removeItem, updateItemQuantity
             <div className="col-md-12">
                 <div className="card">
                     <div className="card-body">
-                        <table className="table table-borderless">
+                        <table className="table table-borderless table-responsive">
                             <thead>
                                 <tr>
                                     <th>Photo</th>
@@ -16,7 +16,7 @@ export default function Carrinho({items, isEmpty, removeItem, updateItemQuantity
                                     <th>Preço</th>
                                     <th>Quantidade</th>
                                     <th>Total</th>
-                                    <th>Ação</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody className="justify-content-center">
@@ -31,7 +31,7 @@ export default function Carrinho({items, isEmpty, removeItem, updateItemQuantity
                                                 <button  className="btn btn-sm btn-outline-secondary" onClick={() => updateItemQuantity(item.id, item.quantity-1)}>-</button>
                                                     <span className="mx-2">{item.quantity}</span>
                                                 <button className="btn btn-sm btn-outline-secondary" onClick={() => updateItemQuantity(item.id, item.quantity+1)}>+</button></td>
-                                            <td>{item.itemTotal}</td>
+                                            <td>R$ {item.itemTotal}</td>
                                             <td><button type="button" className="btn btn-sm btn-outline-danger" onClick={() => removeItem(item.id)}>X</button></td>
                                         </tr>
                                        );

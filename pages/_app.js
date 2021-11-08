@@ -3,6 +3,8 @@ import '../styles/globals.scss';
 //import 'bootstrap-icons/font/bootstrap-icons.css';
 import Head from 'next/head';
 import { CartProvider } from "react-use-cart";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
   return ( 
@@ -17,7 +19,22 @@ function MyApp({ Component, pageProps }) {
         <meta name="msapplication-TileColor" content="#2d89ef"/>
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
-      <CartProvider><Component {...pageProps} /></CartProvider>
+      <CartProvider  onItemAdd={(item) => toast.success(`${item.nome} adicionado ao carrinho`,  { theme: "colored" })}
+        onItemUpdate={(item) => toast.info(`Atualizada quantiadade de ${item.nome} `,  { theme: "colored" })}
+        onItemRemove={(item) => toast.warn(`Item removido do carrinho`,  { theme: "colored" })}>
+        <Component {...pageProps} />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          />
+      </CartProvider>
     </>
   );
 }

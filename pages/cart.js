@@ -3,6 +3,7 @@ import Carrinho from "../components/products/carrinho";
 import Link from 'next/link';
 import {useRouter} from "next/router";
 import { useCart } from "react-use-cart";
+import Head from 'next/head';
 
 
 export default function Cart(){
@@ -19,6 +20,9 @@ export default function Cart(){
 
     return (
         <Layout>
+            <Head>
+                <title>MyShop | Carrinho</title>
+            </Head>
             <main>
                 <div className="album py-5 bg-light">
                     <div className="container">
@@ -32,13 +36,13 @@ export default function Cart(){
                                 </Link>
                             </div>
                             <div className="col-10">
-                                <h6 className="float-end">{totalUniqueItems > 0 ? (totalUniqueItems != 1 ? `${totalUniqueItems} itens` : " 1 item") : "" }, Total: R$ {cartTotal}</h6>
+                                <h6 className="float-end">{totalUniqueItems > 0 ? (totalUniqueItems != 1 ? `${totalUniqueItems} itens, ` : " 1 item, ") : "" } Total: R$ {cartTotal}</h6>
                             </div>
                         </div>
                         <Carrinho isEmpty={isEmpty} items={items} updateItemQuantity={updateItemQuantity} removeItem={removeItem} />
                         <div className="row my-2">
                             <div className="col-12">
-                                <button type="button" className="btn btn-primary float-end">Finalizar Compra</button>
+                                {!isEmpty && <button type="button" className="btn btn-primary float-end">Finalizar Compra</button>}
                                 <button type="button" className="btn btn-outline-primary float-end mx-2" onClick={() => route.push("/shop")}>Comprar mais itens</button>
                             </div>
                         </div>
