@@ -1,5 +1,5 @@
 ## Sobre o projeto
-O faz parte de um teste para desenvolvedor Fullstack. Objetivo é utilizar os conhecimentos de desenvolvimento para implementar uma e-commerce, obtendo dados de produtos, a partir da APi de fornecedores e disponibilizar os produtos para venda. Deverá ser possível, pesquisar produtos, adicionar itens ao carrinho e simular compras que deverão ficar registadas em um Banco de Dados.
+Este projeto faz parte de um teste para desenvolvedor Fullstack. Objetivo é implementar uma e-commerce, obtendo dados de produtos, a partir da APi de fornecedores e disponibilizar os produtos para venda. Deverá ser possível, pesquisar produtos, adicionar itens ao carrinho e simular compras que deverão ficar registadas em um Banco de Dados.
 <br/>
 **DEMO:** https://my-commerce-chi.vercel.app/
 
