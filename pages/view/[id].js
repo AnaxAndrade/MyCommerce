@@ -4,12 +4,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import ProductList from '../../components/products/product-list'
 import Link from 'next/link';
+import { useCart } from "react-use-cart";
 
 export default function DetalhesProduto({item, featured}){
     const route = useRouter();
+    const { addItem } = useCart();
 
     function addToCartHandler(){
-
+        addItem({...item, price: Number(item.preco)}, 1);
     }
 
     return (

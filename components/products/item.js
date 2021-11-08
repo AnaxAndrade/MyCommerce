@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import styles from './Item.module.css';
 import Image from 'next/image'
+import { useCart } from "react-use-cart";
 
 export default function Item(props){
-    
+    const { addItem } = useCart();
+
     function addToCartHandler(){
+        addItem({...props.item, price: Number(props.item.preco)}, 1);
         if (props.onAddToCart != null)
         {
             props.onAddToCart(props.item);

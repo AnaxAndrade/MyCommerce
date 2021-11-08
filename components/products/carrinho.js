@@ -1,32 +1,8 @@
 import Image from 'next/image';
 
-export default function Carrinho(props) {
-    const items = [
-        {
-          nome: "Ergonomic Fresh Bacon",
-          descricao: "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-          categoria: "Generic",
-          imagem: "http://placeimg.com/640/480/animals",
-          preco: "174.00",
-          material: "Concrete",
-          departamento: "Garden",
-          quantidade: 1,
-          total: 174,
-          id: "1-28"
-        },
-        {
-          nome: "Awesome Frozen Soap",
-          descricao: "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-          categoria: "Small",
-          imagem: "http://placeimg.com/640/480/transport",
-          preco: "404.00",
-          material: "Rubber",
-          departamento: "",
-          quantidade: 1,
-          total: 808,
-          id: "2-36"
-        }];
-
+export default function Carrinho({items, isEmpty, removeItem, updateItemQuantity}) {
+    
+      
     return (
         <div className="row">
             <div className="col-md-12">
@@ -50,13 +26,17 @@ export default function Carrinho(props) {
                                                 <Image src={item.imagem} width={90} height={90}></Image>
                                             </td>
                                             <td>{item.nome}</td>
-                                            <td>{item.preco}</td>
-                                            <td><button  className="btn btn-sm btn-outline-secondary">-</button> {item.quantidade} <button className="btn btn-sm btn-outline-secondary">+</button></td>
-                                            <td>{item.total}</td>
-                                            <td><button type="button" className="btn btn-sm btn-outline-danger">X</button></td>
+                                            <td>R$ {item.preco}</td>
+                                            <td>
+                                                <button  className="btn btn-sm btn-outline-secondary" onClick={() => updateItemQuantity(item.id, item.quantity-1)}>-</button>
+                                                    <span className="mx-2">{item.quantity}</span>
+                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => updateItemQuantity(item.id, item.quantity+1)}>+</button></td>
+                                            <td>{item.itemTotal}</td>
+                                            <td><button type="button" className="btn btn-sm btn-outline-danger" onClick={() => removeItem(item.id)}>X</button></td>
                                         </tr>
                                        );
                                 })}
+                                {isEmpty && <tr><td colSpan="6"><p className="text-center">Sem itens no carrinho!</p></td></tr>}
                             </tbody>
                         </table>
                     </div>

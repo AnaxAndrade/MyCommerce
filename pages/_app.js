@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.scss';
 //import 'bootstrap-icons/font/bootstrap-icons.css';
 import Head from 'next/head';
+import { CartProvider } from "react-use-cart";
 
 function MyApp({ Component, pageProps }) {
   return ( 
@@ -16,7 +17,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="msapplication-TileColor" content="#2d89ef"/>
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
-      <Component {...pageProps} />
+      <CartProvider><Component {...pageProps} /></CartProvider>
     </>
   );
 }

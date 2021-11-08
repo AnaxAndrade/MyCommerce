@@ -2,9 +2,20 @@ import Layout from "../components/base/Layout";
 import Carrinho from "../components/products/carrinho";
 import Link from 'next/link';
 import {useRouter} from "next/router";
+import { useCart } from "react-use-cart";
+
 
 export default function Cart(){
     const route = useRouter();
+
+      const {
+        isEmpty,
+        items,
+        totalUniqueItems,
+        cartTotal,
+        updateItemQuantity,
+        removeItem,
+      } = useCart();
 
     return (
         <Layout>
@@ -21,10 +32,10 @@ export default function Cart(){
                                 </Link>
                             </div>
                             <div className="col-10">
-                                <h6 className="float-end">X itens, Total: R$ 000</h6>
+                                <h6 className="float-end">{totalUniqueItems > 0 ? (totalUniqueItems != 1 ? `${totalUniqueItems} itens` : " 1 item") : "" }, Total: R$ {cartTotal}</h6>
                             </div>
                         </div>
-                        <Carrinho />
+                        <Carrinho isEmpty={isEmpty} items={items} updateItemQuantity={updateItemQuantity} removeItem={removeItem} />
                         <div className="row my-2">
                             <div className="col-12">
                                 <button type="button" className="btn btn-primary float-end">Finalizar Compra</button>
