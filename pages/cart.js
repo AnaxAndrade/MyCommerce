@@ -1,13 +1,16 @@
 import Layout from "../components/base/Layout";
 import Carrinho from "../components/products/carrinho";
 import Link from 'next/link';
-import {useRouter} from "next/router";
+import router, {useRouter} from "next/router";
 import { useCart } from "react-use-cart";
 import Head from 'next/head';
+import { useSession } from "next-auth/client";
+import { toast } from 'react-toastify';
 
 
 export default function Cart(){
     const route = useRouter();
+    const [session, loading] = useSession();
 
       const {
         isEmpty,
@@ -16,7 +19,44 @@ export default function Cart(){
         cartTotal,
         updateItemQuantity,
         removeItem,
+        emptyCart
       } = useCart();
+
+      async function checkout()
+      {
+        // não autenticado => login
+        if (!session)
+        {
+            toast.info(`Tem de entrar para finalizar compra!`,  { theme: "colored" });
+            route.push("/login?return=/cart");
+        }
+        else{
+            // autenticado => Registar compra do user
+            // call api endpoint
+            const res = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    total: cartTotal,
+                    items
+                }),
+            });
+            const j = await res.json();
+            if (j.status)
+            {
+                toast.success(`Compra efetuada com sucesso!`,  { theme: "colored" });
+                // Limpar carrinho
+                emptyCart();
+                router.push("/account");
+            }
+            else{
+                toast.error(`Erro ao efetuar compra: ${j.message}!`,  { theme: "colored" });
+
+            }
+        }
+      }
 
     return (
         <Layout>
@@ -42,7 +82,7 @@ export default function Cart(){
                         <Carrinho isEmpty={isEmpty} items={items} updateItemQuantity={updateItemQuantity} removeItem={removeItem} />
                         <div className="row my-2">
                             <div className="col-12">
-                                {!isEmpty && <button type="button" className="btn btn-primary float-end">Finalizar Compra</button>}
+                                {!isEmpty && <button type="button" className="btn btn-primary float-end" onClick={checkout}>Finalizar Compra</button>}
                                 <button type="button" className="btn btn-outline-primary float-end mx-2" onClick={() => route.push("/shop")}>Comprar mais itens</button>
                             </div>
                         </div>

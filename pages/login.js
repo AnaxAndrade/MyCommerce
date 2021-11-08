@@ -28,7 +28,13 @@ export default function Login(){
             if (response.ok)
             {
                 toast.success(`Autenticado com sucesso!`,  { theme: "colored" });
-                router.replace("/account");
+                if (router.query.return)
+                {
+                    router.push(router.query.return);
+                }
+                else{
+                    router.replace("/account");
+                }
             }
             else{
                 toast.error(`Utilizador ou password inválidos`,  { theme: "colored" });

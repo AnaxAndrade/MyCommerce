@@ -61,9 +61,9 @@ function Layout(props){
                                     </svg>
                                 </a>
                             </Link>
-                            {session && <Link href="/account"><a className="btn btn-outline-secondary">Conta</a></Link> }
+                            {session && <Link href="/account"><a className="btn btn-outline-secondary">Minha Conta</a></Link> }
                             {session && <button type="button" onClick={logout} className="btn btn-outline-danger mx-2">Sair</button> }
-                            {!session && !loading && <Link href="/login"><a className="btn btn-primary">Entrar</a></Link> }
+                            {!session && <Link href="/login"><a className="btn btn-primary">Entrar</a></Link> }
                         </div>
                     </header>
                 </div>

@@ -41,7 +41,8 @@ export default NextAuth({
                 }
                 //Em caso de sucesso
                 client.close();
-                return { id: result._id, name: result.name, email: result.email };
+
+                return { id: result._id.toString(), name: result.name, email: result.email };
             },
         }),
     ],

@@ -1,22 +1,27 @@
 import Layout from "../components/base/Layout";
 import { useState, useEffect } from 'react';
-import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 import { useSession } from 'next-auth/client';
+import fetcher from "../lib/fetcher";
+import useSWR from "swr";
+import Compras from "../components/products/compras";
 
 export default function Conta(){
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
+    const [compras, setCompras] = useState(null);
     const router = useRouter();
 
     const [session, loading] = useSession();
+    
+    const { data, error } = useSWR('/api/compras', fetcher);
+
     // Check for loggenIn User
     useEffect(()=>{
         if (session)
         {
             setUser(session.user);
 
-            // Get compras User
         }else{
             if (!loading)
             {
@@ -28,8 +33,15 @@ export default function Conta(){
         }
     }, [session, loading]);
     
+    useEffect(()=>{
+        if (data){
+            setCompras(data);
+        }
+    }, [data]);
+    
     if (!session || session.user == null) return null;
 
+    
     return (
          <Layout>
          <Head>
@@ -42,10 +54,15 @@ export default function Conta(){
                          <div className="col-md-8 offset-md-2">
                              <div className="card">
                                 <div className="card-body">
-                                    <h3 className="text-center">Bem vindo, {user != null ? user.name : ""}</h3>
-                                    <div className="alert alert-info">
-                                        <p>Sem compras efetuadas!</p>
-                                    </div>
+                                    <h3 className="text-center">Bem vindo, {user != null ? user.name: ""}</h3>
+                                    {compras && compras.length == 0 && (<div className="alert alert-info">
+                                            <p>Sem compras efetuadas!</p>
+                                        </div>)
+                                    }
+                                    {compras && compras.length > 0 && (<><h6>Minhas Compras</h6><Compras items={compras} /></>)
+                                    }
+                                     {!compras && !error && (<p className="text-center">Carregando....</p>)
+                                    }
                                 </div>
                              </div>
                          </div>

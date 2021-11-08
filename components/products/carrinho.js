@@ -8,7 +8,7 @@ export default function Carrinho({items, isEmpty, removeItem, updateItemQuantity
             <div className="col-md-12">
                 <div className="card">
                     <div className="card-body">
-                        <table className="table table-borderless table-responsive">
+                        <table className="table table-borderless table-responsive-xs">
                             <thead>
                                 <tr>
                                     <th>Photo</th>

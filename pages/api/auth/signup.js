@@ -38,7 +38,7 @@ async function handler(req, res) {
         //Close DB connection
         client.close();
     } else {
-        res.status(500).json({ status: false, message: 'Método não suportado' });
+        res.status(405).json({ status: false, message: 'Método não suportado' });
     }
 }
 
