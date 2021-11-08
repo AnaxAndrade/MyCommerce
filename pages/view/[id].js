@@ -97,12 +97,12 @@ export async function getStaticProps({params}){
 export async function getStaticPaths(){
     /* 
         PARA GERAR ESTATICAMENTE PATH PARA TODOS OS PRODUTOS
-    
+    */
    
    const req = await fetch(`${process.env.BASE_URL}/api/ids`).catch(err => console.log(err));
    const pathss = await req.json();
-   */
-   const pathss =  ['2-36', '1-16', '1-21', '2-2']; // PRÉ GERAR APENAS PARA ALGUMAS PATHS
+   
+   //const pathss =  ['2-36', '1-16', '1-21', '2-2']; // PRÉ GERAR APENAS PARA ALGUMAS PATHS
 
     return {
         paths: pathss.map(p => ({params: {id: p} })),
