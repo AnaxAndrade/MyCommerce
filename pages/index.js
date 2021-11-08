@@ -3,7 +3,6 @@ import Layout from '../components/base/Layout'
 import Hero from '../components/home/hero'
 import ProductList from '../components/products/product-list'
 import Link from 'next/link';
-import config from '../lib/config'
 
 export default function Home(props) {
   return (
@@ -40,7 +39,7 @@ export default function Home(props) {
 
 export async function getStaticProps(context){
   let itens = [];
-  const req = await fetch(`${config.BASE_URL}/api/featured?limit=4`).catch(err =>{});
+  const req = await fetch(`${process.env.BASE_URL}/api/featured?limit=4`).catch(err =>{});
   if (req)
   {
     itens = await req.json();

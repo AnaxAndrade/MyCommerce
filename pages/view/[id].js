@@ -1,7 +1,6 @@
 import {useRouter} from "next/router";
 import Layout from "../../components/base/Layout";
 import Head from 'next/head'
-import config from "../../lib/config";
 import Image from 'next/image'
 import ProductList from '../../components/products/product-list'
 import Link from 'next/link';
@@ -71,7 +70,7 @@ export default function DetalhesProduto({item, featured}){
 export async function getStaticProps({params}){
 
     // Obter dados do produto
-    const req = await fetch(`${config.BASE_URL}/api/products/${params.id}`).catch(err => console.log(err));
+    const req = await fetch(`${process.env.BASE_URL}/api/products/${params.id}`).catch(err => console.log(err));
     let prod = null;
     if (req)
     {
@@ -80,7 +79,7 @@ export async function getStaticProps({params}){
 
     // Obter sugestão de outros produtos
     let itens = [];
-    const reqf = await fetch(`${config.BASE_URL}/api/featured?limit=4`).catch(err =>{});
+    const reqf = await fetch(`${process.env.BASE_URL}/api/featured?limit=4`).catch(err =>{});
     if (reqf)
     {
         itens = await reqf.json();
@@ -91,24 +90,19 @@ export async function getStaticProps({params}){
           item: prod,
           featured: itens
         },
-        revalidate: 1800
+        revalidate: 3600
       }
 }
 
 export async function getStaticPaths(){
-   
-    
-   /* 
+    /* 
         PARA GERAR ESTATICAMENTE PATH PARA TODOS OS PRODUTOS
-        MAS A MOCKAPI possui request-throttling que dificulta efetuar chamada para
-        TODOS OS PRODUTOS
-
-
-        const req = await fetch(`${config.BASE_URL}/api/ids`).catch(err => console.log(err));
-        const pathss = await req.json();
     */
-    const pathss =  ['2-36', '1-16', '1-21', '2-2']; // PRÉ GERAR APENAS PARA ALGUMAS PATHS
-
+   
+   const req = await fetch(`${process.env.BASE_URL}/api/ids`).catch(err => console.log(err));
+   const pathss = await req.json();
+   
+   //const pathss =  ['2-36', '1-16', '1-21', '2-2']; // PRÉ GERAR APENAS PARA ALGUMAS PATHS
 
     return {
         paths: pathss.map(p => ({params: {id: p} })),
