@@ -3,9 +3,11 @@ import { Fragment, useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import Footer from './Footer';
 import { useCart } from "react-use-cart";
+import { useSession, signOut } from 'next-auth/client';
+
 
 function Layout(props){
-    const [isAuth, setIsAuth] = useState(false);
+    const [session, loading] = useSession();
 
     const router = useRouter();
     const {
@@ -13,8 +15,9 @@ function Layout(props){
         cartTotal
       } = useCart();
 
-    function logout(){
-
+    async function logout(){
+        const data = await signOut({redirect: false, callbackUrl: null});
+        router.push("/login");
     }
 
     return (
@@ -58,9 +61,9 @@ function Layout(props){
                                     </svg>
                                 </a>
                             </Link>
-                            {isAuth && <Link href="/account"><a className="btn btn-outline-secondary">Conta</a></Link> }
-                            {isAuth && <button type="button" onClick={logout} className="btn btn-outline-danger mx-2">Sair</button> }
-                            {!isAuth && <Link href="/login"><a className="btn btn-primary">Entrar</a></Link> }
+                            {session && <Link href="/account"><a className="btn btn-outline-secondary">Conta</a></Link> }
+                            {session && <button type="button" onClick={logout} className="btn btn-outline-danger mx-2">Sair</button> }
+                            {!session && !loading && <Link href="/login"><a className="btn btn-primary">Entrar</a></Link> }
                         </div>
                     </header>
                 </div>

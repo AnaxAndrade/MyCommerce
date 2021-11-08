@@ -3,21 +3,33 @@ import { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
+import { useSession } from 'next-auth/client';
 
 export default function Conta(){
     const [user, setUser] = useState(null)
-    const router = useRouter()
-    
-    //TODO - Check for loggenIn User
+    const router = useRouter();
 
-    /*useEffect(() => {
-        Auth.currentAuthenticatedUser()
-        .then(user => setUser(user))
-        .catch(() => router.push('/login'))
-    }, []);
-    if (!user) return null;
-    console.log(user);
-    */
+    const [session, loading] = useSession();
+    // Check for loggenIn User
+    useEffect(()=>{
+        if (session)
+        {
+            setUser(session.user);
+
+            // Get compras User
+        }else{
+            if (!loading)
+            {
+                router.push('/login');
+            }
+            else{
+                return null;
+            }
+        }
+    }, [session, loading]);
+    
+    if (!session || session.user == null) return null;
+
     return (
          <Layout>
          <Head>
@@ -30,7 +42,7 @@ export default function Conta(){
                          <div className="col-md-8 offset-md-2">
                              <div className="card">
                                 <div className="card-body">
-                                    <h3 className="text-center">Bem vindo, {""}</h3>
+                                    <h3 className="text-center">Bem vindo, {user != null ? user.name : ""}</h3>
                                     <div className="alert alert-info">
                                         <p>Sem compras efetuadas!</p>
                                     </div>

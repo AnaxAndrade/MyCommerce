@@ -18,9 +18,26 @@ export default function Registar(){
             return;
         }
         try{
-            //TODO - Sign Up Logic
-            toast.info(`Cadastrado com sucesso, verifique seu email com código de confirmação!`,  { theme: "colored" });
-            setIsConfirm(true);
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: nomeRef.current.value,
+                    email: emailRef.current.value,
+                    password: passwordRef.current.value,
+                }),
+            });
+           
+            const data = await res.json();
+
+            if (data.status){
+                toast.success(`Cadastrado com sucesso, entre com sua conta!`,  { theme: "colored" });
+                router.push("/login");
+            }else {
+                toast.error(`Erro ao registar a conta: ${data.message}`,  { theme: "colored" });
+            }
         }
         catch(err)  {
             toast.error(`Erro ao registar a conta: ${err.message}`,  { theme: "colored" });

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/client';
 
 export default function Login(){
     const emailRef = useRef("");
@@ -17,9 +18,21 @@ export default function Login(){
             return;
         }
         try{
-            //TODO - sign in logic
-            toast.success(`Autenticado com sucesso!`,  { theme: "colored" });
-            router.push("/account");
+            // sign in logic
+            const response = await signIn('credentials', {
+                redirect: false,
+                email: emailRef.current.value,
+                password: passwordRef.current.value,
+            });
+            
+            if (response.ok)
+            {
+                toast.success(`Autenticado com sucesso!`,  { theme: "colored" });
+                router.replace("/account");
+            }
+            else{
+                toast.error(`Utilizador ou password inválidos`,  { theme: "colored" });
+            }
         }
         catch(err)  {
             toast.error(`Erro ao entrar: ${err.message}`,  { theme: "colored" });
