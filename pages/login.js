@@ -1,15 +1,17 @@
 import Layout from "../components/base/Layout";
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client';
+import { Spinner } from 'react-bootstrap';
 
 export default function Login(){
     const emailRef = useRef("");
     const passwordRef = useRef("");
-    const router = useRouter()
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
 
     async function entrar(){
         if (emailRef.current.value.trim().length < 1 || passwordRef.current.value.trim().length < 1 )
@@ -19,6 +21,7 @@ export default function Login(){
         }
         try{
             // sign in logic
+            setIsLoading(true);
             const response = await signIn('credentials', {
                 redirect: false,
                 email: emailRef.current.value,
@@ -39,6 +42,7 @@ export default function Login(){
             else{
                 toast.error(`Utilizador ou password inválidos`,  { theme: "colored" });
             }
+            setIsLoading(false);
         }
         catch(err)  {
             toast.error(`Erro ao entrar: ${err.message}`,  { theme: "colored" });
@@ -72,7 +76,10 @@ export default function Login(){
                                                 </label>
                                             </div>
                                             <div className="d-grid gap-2 text-center">
-                                                <button className="btn btn-primary" type="button"  onClick={entrar}>Entrar</button>
+                                                <button className="btn btn-primary" type="button"  onClick={entrar} disabled={isLoading}>
+                                                    {!isLoading && "Entrar" }
+                                                    {isLoading && <Spinner animation="border" size="sm" variant="secondary" /> }
+                                                </button>
                                                 <p className="my-0">ou</p>
                                                 <Link href="/register"><a>Criar uma conta</a></Link>
                                             </div>

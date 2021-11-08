@@ -6,11 +6,14 @@ import { useCart } from "react-use-cart";
 import Head from 'next/head';
 import { useSession } from "next-auth/client";
 import { toast } from 'react-toastify';
+import { Spinner } from 'react-bootstrap';
+import { useState } from 'react';
 
 
 export default function Cart(){
     const route = useRouter();
     const [session, loading] = useSession();
+    const [isLoading, setIsLoading] = useState(false);
 
       const {
         isEmpty,
@@ -33,6 +36,7 @@ export default function Cart(){
         else{
             // autenticado => Registar compra do user
             // call api endpoint
+            setIsLoading(true);
             const res = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: {
@@ -44,6 +48,7 @@ export default function Cart(){
                 }),
             });
             const j = await res.json();
+            setIsLoading(false);
             if (j.status)
             {
                 toast.success(`Compra efetuada com sucesso!`,  { theme: "colored" });
@@ -82,7 +87,10 @@ export default function Cart(){
                         <Carrinho isEmpty={isEmpty} items={items} updateItemQuantity={updateItemQuantity} removeItem={removeItem} />
                         <div className="row my-2">
                             <div className="col-12">
-                                {!isEmpty && <button type="button" className="btn btn-primary float-end" onClick={checkout}>Finalizar Compra</button>}
+                                {!isEmpty && (<button type="button" className="btn btn-primary float-end" onClick={checkout} disabled={isLoading}>
+                                    {!isLoading && "Finalizar Compra"}
+                                    {isLoading && <Spinner animation="border" size="sm" variant="secondary" /> }
+                                </button>)}
                                 <button type="button" className="btn btn-outline-primary float-end mx-2" onClick={() => route.push("/shop")}>Comprar mais itens</button>
                             </div>
                         </div>

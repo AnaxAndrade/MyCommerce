@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/client';
 import fetcher from "../lib/fetcher";
 import useSWR from "swr";
 import Compras from "../components/products/compras";
+import { Spinner } from 'react-bootstrap';
 
 export default function Conta(){
     const [user, setUser] = useState(null);
@@ -61,7 +62,7 @@ export default function Conta(){
                                     }
                                     {compras && compras.length > 0 && (<><h6>Minhas Compras</h6><Compras items={compras} /></>)
                                     }
-                                     {!compras && !error && (<p className="text-center">Carregando....</p>)
+                                     {!compras && !error && (<p className="text-center"><Spinner animation="border" size="sm" variant="secondary" /> Carregando....</p>)
                                     }
                                 </div>
                              </div>
