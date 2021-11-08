@@ -1,15 +1,29 @@
 import Link from 'next/link'
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import Footer from './Footer';
 import { useCart } from "react-use-cart";
+import { Auth } from 'aws-amplify';
 
 function Layout(props){
+    const [isAuth, setIsAuth] = useState(false);
+
+    useEffect(() => {
+        Auth.currentAuthenticatedUser()
+        .then(user => {setIsAuth(true);})
+        .catch((err)=>{})
+    }, []);
+
     const router = useRouter();
     const {
         isEmpty,
         cartTotal
       } = useCart();
+
+    function logout(){
+        Auth.signOut().then(()=> router.push("/login"));
+        ;
+    }
 
     return (
         <Fragment>
@@ -52,7 +66,9 @@ function Layout(props){
                                     </svg>
                                 </a>
                             </Link>
-                            <Link href="/login"><a className="btn btn-primary">Entrar</a></Link>
+                            {isAuth && <Link href="/account"><a className="btn btn-outline-secondary">Conta</a></Link> }
+                            {isAuth && <button type="button" onClick={logout} className="btn btn-outline-danger mx-2">Sair</button> }
+                            {!isAuth && <Link href="/login"><a className="btn btn-primary">Entrar</a></Link> }
                         </div>
                     </header>
                 </div>
